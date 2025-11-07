@@ -75,13 +75,13 @@ public class AuthController {
       attemptService.loginSucceeded(username);
  
       // audit
-      AuditLog a = new AuditLog(); a.setUsername(username); a.setAction("LOGIN_SUCCESS"); a.setIpAddress(httpReq.getRemoteAddr()); a.setCreatedAt(Instant.now());
+      AuditLog a = new AuditLog(); a.setUsername(username); a.setAction("LOGIN_SUCCESS"); a.setCreatedAt(Instant.now());
       auditRepo.save(a);
  
       return ResponseEntity.ok(Map.of("token", jwt));
     } catch (BadCredentialsException ex){
       attemptService.loginFailed(username);
-      AuditLog a = new AuditLog(); a.setUsername(username); a.setAction("LOGIN_FAILURE"); a.setIpAddress(httpReq.getRemoteAddr()); a.setCreatedAt(Instant.now());
+      AuditLog a = new AuditLog(); a.setUsername(username); a.setAction("LOGIN_FAILURE"); a.setCreatedAt(Instant.now());
       auditRepo.save(a);
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error","Invalid credentials"));
     }
@@ -94,7 +94,7 @@ public class AuthController {
       String token = authHeader.substring(7);
       if(jwtUtil.validateToken(token)) username = jwtUtil.getUsernameFromToken(token);
     }
-    AuditLog a = new AuditLog(); a.setUsername(username); a.setAction("LOGOUT"); a.setIpAddress(req.getRemoteAddr()); a.setCreatedAt(Instant.now());
+    AuditLog a = new AuditLog(); a.setUsername(username); a.setAction("LOGOUT"); a.setCreatedAt(Instant.now());
     auditRepo.save(a);
  
     // optionally blacklist token here

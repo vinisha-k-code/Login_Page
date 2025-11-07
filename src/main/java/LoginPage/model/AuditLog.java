@@ -12,14 +12,12 @@ public class AuditLog {
 	private Long id;
 	private String username;
 	private String action; // LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT
-	private String ipAddress;
 	private Instant createdAt;
 	public AuditLog(Long id, String username, String action, String ipAddress, Instant createdAt) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.action = action;
-		this.ipAddress = ipAddress;
 		this.createdAt = createdAt;
 	}
 	
@@ -52,13 +50,8 @@ public class AuditLog {
 		this.action = action;
 	}
 
-	public String getIpAddress() {
-		return ipAddress;
-	}
+	
 
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
-	}
 
 	public Instant getCreatedAt() {
 		return createdAt;
